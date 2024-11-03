@@ -1,0 +1,25 @@
+defaults:
+    - override hydra/sweeper: optuna
+
+# 各種パラメータ
+# range(16,512),choice(0.1,0.01,0.001),interval(-5.0,5.0)
+optimizer:
+    epsilon: 0.1
+    cooling_rate: choice(0.1,0.01,0.001)
+    epoch: 100
+
+general:
+    module_name: scripts.sample
+    num_tests: 100
+    max_workers: 4
+    executor_type: ProcessPoolExecutor
+
+hydra:
+    sweeper:
+      sampler:
+        seed: 123
+      n_trials: 40
+      direction: maximize
+      storage: null
+      study_name: tpe
+      n_jobs: 1
