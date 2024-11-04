@@ -65,18 +65,7 @@ def make_day_num_task(task_num, day):
     return norma
 
 
-def planning(cost, day, tasks, schedule):
-    selected_jobs = set(rd.sample(tasks, k=norma[day - 1]))
-    rev = env.evaluate(selected_jobs)
-
-    for job_id in selected_jobs:
-        tasks.remove(job_id)
-        schedule[job_id] = day
-
-    return [cost + rev, day + 1, tasks[:], copy.deepcopy(schedule)]
-
-
-def solve():
+def solve(limit=5.7):
 
     N, M, D, K = map(int, input().split())
 
@@ -111,8 +100,6 @@ def solve():
             init_schedule.append(days + 1)
 
     # ランダムで入れ替えてよくなったらみたいな
-    limit = 5.7
-
     day_selected_jobs = [set() for d in range(D)]
 
     for num_jobs, d in enumerate(init_schedule):
